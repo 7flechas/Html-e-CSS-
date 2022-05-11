@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>02 - 10 - Exercício: Gráfico de barras</title>
+</head>
+    <body>
+        <canvas width="600" height="400"></canvas> 
+        <script>
+
+            function desenhaRetangulo(x, y, largura, altura, cor) {
+
+                var tela = document.querySelector("canvas");
+                var pincel = tela.getContext("2d");
+
+                pincel.fillStyle = cor;
+                pincel.fillRect(x, y, largura, altura);
+                pincel.strokeStyle = "black";
+                pincel.strokeRect(x,y, largura, altura);
+
+            }
+
+            function desenhaTexto(x , y, texto) {
+
+                var tela = document.querySelector("canvas");
+                var pincel = tela.getContext("2d");
+
+                pincel.font = "15px Georgia";
+                pincel.fillStyle = "black";
+                pincel.fillText(texto, x, y);   
+
+            }
+
+            function desenhaBarra(x, y, serie, cores, texto) {
+
+                desenhaTexto(x, y - 10, texto); //colocar o texto acima dos gráficos;
+
+                var somaAltura = 0; // variável hipotética;
+
+                //var i = 0 repetiçoes do array 
+
+                for(var i = 0; i < serie.length; i++) {     // lenght != length; ATENÇÃO!
+
+                    var altura = serie[i]; //criando variável das alturas do array dos retangulos;
+                    desenhaRetangulo(x, + y + somaAltura, 50 /*largura do rentângulo*/, altura, cores[i]);
+                    somaAltura = somaAltura + altura  // para ir somando as alturas de um triangulo no outro
+
+                }    
+
+            }
+
+                function desenhaLegenda (x, y, largura, altura, cores, textos) {
+
+                desenhaTexto(250, 65, 'Legenda');
+                var somaAltura = 0;
+
+                for(var i = 0; i < 4; i++) {
+                    var textos = ['Chrome', 'Firefox', 'Safari', 'Outros'];
+                    var altura = 20;
+                    desenhaRetangulo(x, y + somaAltura, 10, 10, cores);
+                    desenhaTexto(270, 90 + somaAltura, textos);
+                    somaAltura = somaAltura + altura;
+                }
+            }
+
+            var cores = ['blue','green','yellow', 'red'];
+            var textos = ['Chrome', 'Firefox', 'Safari', 'Outros'];
+            var serie2015 = [50,25,20,5];
+            var serie2016 = [65,20,13,2];
+
+            desenhaBarra(50, 50, serie2015, cores, "2015");
+            desenhaBarra(150, 50, serie2016, cores, "2016");
+            desenhaTexto(250, 90, 'Google');
+            desenhaTexto(250, 120, 'firefox'); 
+            desenhaTexto(250, 135, 'Edge');
+            desenhaTexto(250, 150, 'outros');
+
+        </script>
+    </body>
+</html>
+
+
